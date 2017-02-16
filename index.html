@@ -11,6 +11,14 @@
         <p>
             {{title}}
         </p>
+        <button v-on:click="increase(2 )">Click Me !!</button>
+        <p>
+            {{number}}
+        </p>
+        <p v-on:mousemove="updateCoordinate">
+            Coordinate : {{ xx }} / {{ yy }}-
+            <span v-on:mousemove.stop>Dead</span>
+        </p>
     </div>
 </body>
 <script>
@@ -18,11 +26,24 @@
         el: '#app',
         data: {
             title: "Hello World!",
+            number: 0,
+            xx: 0,
+            yy: 0,
         },
         methods: {
             changeTitle: function(event) {
                 this.title = event.target.value;
-            }
+            },
+            increase: function(step, event) {
+                this.number += step;
+            },
+            updateCoordinate: function(event) {
+                this.xx = event.clientX;
+                this.yy = event.clientY;
+            },
+            /*dead: function(event) {
+                event.stopPropagation();
+            },*/
         },
     });
 </script>

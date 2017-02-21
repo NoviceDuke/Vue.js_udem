@@ -3,22 +3,21 @@
 
 <head>
     <script src="vue.js"></script>
+    <link rel='stylesheet' href="box.css" />
 </head>
 
 <body>
     <div id="app">
-        <input type="text" v-on:input="changeTitle">
-        <p>
-            {{title}}
-        </p>
-        <button v-on:click="increase(2 )">Click Me !!</button>
-        <p>
-            {{number}}
-        </p>
-        <p v-on:mousemove="updateCoordinate">
-            Coordinate : {{ xx }} / {{ yy }}-
-            <span v-on:mousemove.stop>Dead</span>
-        </p>
+        <div>
+
+            <div class="demo" :class="color"></div>
+            <div class="demo" :style="myStyle"></div>
+            <div class="demo" :style="[myStyle , { height: width + 'px' } ]"></div>
+
+            <hr />
+            <input type="text" v-model="color" />
+            <input type="text" v-model="width" />
+        </div>
     </div>
 </body>
 <script>
@@ -29,6 +28,23 @@
             number: 0,
             xx: 0,
             yy: 0,
+            attachRed: false,
+            color: '',
+            width: 100
+        },
+        computed: {
+            divClasses: function() {
+                return {
+                    red: this.attachRed,
+                    blue: !this.attachRed
+                };
+            },
+            myStyle: function() {
+                return {
+                    backgroundColor: this.color,
+                    width: this.width + 'px'
+                };
+            },
         },
         methods: {
             changeTitle: function(event) {

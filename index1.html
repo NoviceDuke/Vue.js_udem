@@ -1,0 +1,99 @@
+<!Doctype html>
+<html>
+
+<head>
+    <script src="vue.js"></script>
+    <link rel='stylesheet' href="box.css" />
+</head>
+
+<body>
+    <div id="app">
+
+        <p v-if="show">你好呀</p>
+        <p v-else>
+            換我瞜
+        </p>
+        <p v-show="show">
+            現在是你
+        </p>
+        <button @click="show =!show">顯示</button>
+        <ul>
+            <li v-for="(food,i) in ingredients">
+                {{food}} - {{i}}
+            </li>
+        </ul>
+        <input type="text" v-model="food" />
+        <button @click="addIngredients">增加食材</button>
+
+        <hr />
+        <hr />
+        <ul>
+            <li v-for="person in persons">
+                <div v-for="( value , key , index ) in person">
+                    {{key}} : {{value}} - {{index}}
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: "Hello World!",
+            number: 0,
+            xx: 0,
+            yy: 0,
+            attachRed: false,
+            color: '',
+            width: 100,
+            show: true,
+            food: "",
+            ingredients: ['apple', 'banana', 'grape'],
+            persons: [{
+                    name: 'Duke',
+                    age: '25',
+                    color: 'red'
+                },
+                {
+                    name: 'Duke',
+                    age: '30',
+                    color: 'blue'
+                }
+
+            ],
+        },
+        computed: {
+            divClasses: function() {
+                return {
+                    red: this.attachRed,
+                    blue: !this.attachRed
+                };
+            },
+            myStyle: function() {
+                return {
+                    backgroundColor: this.color,
+                    width: this.width + 'px'
+                };
+            },
+        },
+        methods: {
+            changeTitle: function(event) {
+                this.title = event.target.value;
+            },
+            increase: function(step, event) {
+                this.number += step;
+            },
+            updateCoordinate: function(event) {
+                this.xx = event.clientX;
+                this.yy = event.clientY;
+            },
+            addIngredients: function() {
+                this.ingredients.push(this.food);
+                this.food = "";
+            }
+        },
+    });
+</script>
+
+</html>
